@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import './App.css'
-import Kanban from './Pages/Kanban.tsx'
+import Kanban from './Pages/Kanban'
 // import ListView from './Pages/List.tsx'
 
 
