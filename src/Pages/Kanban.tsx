@@ -1,5 +1,5 @@
-import React from 'react'
 import { useState } from 'react'
+import { CircleX } from 'lucide-react';
 
 
 interface Task {
@@ -229,6 +229,9 @@ function Kanban() {
                                             onDragStart={() => handleDragStart(task.id, activeColumns)}
                                             className="group relative bg-zinc-900 border border-zinc-700 rounded-lg p-3 cursor-grab hover:border-zinc-500 transition-all"
                                         >
+                                            <button onClick={() => removeTask(task.id, activeColumns)}>
+                                                <CircleX />
+                                            </button>
                                             <span className={`inline-block text-xs font-semibold px-2 py-0.5 rounded-full mb-2 ${priorityColors[task.priority]}`}>
                                                 {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
                                             </span>
