@@ -179,7 +179,7 @@ function Kanban() {
                     <div className='mb-4 flex w-full  rounded-lg overflow-hidden gap-4 justify-center items-center flex-wrap'>
 
 
-                        <input type='text' value={newTask} onChange={(e: any) => setNewTask(e.target.value)} className='px-3 py-1 bg-zinc-400 text-zinc-600 rounded-lg' placeholder='Enter New Task'></input>
+                        <input type='text' value={newTask} onChange={(e: any) => setNewTask(e.target.value)} className='px-3 py-1 bg-zinc-700 text-zinc-100 rounded-lg' placeholder='Enter New Task'></input>
 
                         <input
                             type="text"
@@ -196,8 +196,6 @@ function Kanban() {
                             className="px-3 py-1 bg-zinc-700 text-zinc-100 rounded-lg"
                         />
 
-                        <button className='bg-red-400 px-3 py-1 rounded-lg whitespace-nowrap' onClick={addNewTask}>ADD TASK</button>
-
                         <select className='text-zinc-100 bg-zinc-700 px-3 py-1 rounded-lg border-zinc-500' value={activeColumns} onChange={(e) => setActiveColumns(e.target.value as ColumnType)}>
                             {(Object.keys(columns) as ColumnType[]).map((activeColumns) => (
                                 <option value={activeColumns} key={activeColumns}>
@@ -205,6 +203,10 @@ function Kanban() {
                                 </option>
                             ))}
                         </select>
+
+                        
+                        <button className='bg-red-400 px-3 py-1 rounded-lg whitespace-nowrap' onClick={addNewTask}>ADD TASK</button>
+
 
                     </div>
 
