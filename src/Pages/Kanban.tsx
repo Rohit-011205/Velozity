@@ -173,7 +173,7 @@ function Kanban() {
     return (
         <>
             <div className=" p-6 w-full min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-800 flex items-center justify-center">
-                <div className="flex items-center justify-center flex-col gap-4 w-full max-w-6xl">
+                <div className="flex items-center justify-center flex-col gap-4 w-full ">
                     <h1 className='text-6xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-purple-800 via-amber-600 to-red-200 flex items-center justify-center'> KANBAN BOARD</h1>
 
                     <div className='mb-4 flex w-full  rounded-lg overflow-hidden gap-4 justify-center items-center flex-wrap'>
@@ -210,7 +210,7 @@ function Kanban() {
 
                     </div>
 
-                    <div className='flex gap-6 overflow-x-auto pb-6 w-full px-4 '>
+                    <div className='flex flex-wrap gap-4 overflow-x-hidden pb-6 max-w-fit px-4 '>
                         {(Object.keys(columns) as ColumnType[]).map((activeColumns) => (
                             <div key={activeColumns} className={`text-white flex-shrink-0 w-80 rounded-lg shadow-xl border-t-4 ${columnStyles[activeColumns]?.border || ""} bg-zinc-800 p-4`}
 
