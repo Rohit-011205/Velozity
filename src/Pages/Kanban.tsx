@@ -17,7 +17,8 @@ interface Column {
 }
 
 function Kanban() {
-    const [columns, setColumns] = useState({
+    type ColumnsState = Record<ColumnType, Column>;
+    const [columns, setColumns] = useState<ColumnsState>({
         todo: {
             name: "To Do",
             status: "todo",
@@ -69,7 +70,10 @@ function Kanban() {
     type ColumnType = "todo" | "in_progress" | "in_review" | "finished";
 
     const [activeColumns, setActiveColumns] = useState<ColumnType>("todo");
-    const [draggedItem, setDraggedItem] = useState<any>(null);
+    const [draggedItem, setDraggedItem] = useState<{
+        taskId: string;
+        source: ColumnType;
+    } | null>(null);
     const [newAssignee, setNewAssignee] = useState<string>("");
     const [newDueDate, setNewDueDate] = useState<string>("");
 
@@ -195,7 +199,7 @@ function Kanban() {
                         <button className='bg-red-400 px-3 py-1 rounded-lg whitespace-nowrap' onClick={addNewTask}>ADD TASK</button>
 
                         <select className='text-zinc-100 bg-zinc-700 px-3 py-1 rounded-lg border-zinc-500' value={activeColumns} onChange={(e) => setActiveColumns(e.target.value as ColumnType)}>
-                            {Object.keys(columns).map((activeColumns) => (
+                            {(Object.keys(columns) as ColumnType[]).map((activeColumns) => (
                                 <option value={activeColumns} key={activeColumns}>
                                     {columns[activeColumns].name}
                                 </option>
