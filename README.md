@@ -1,73 +1,55 @@
-# React + TypeScript + Vite
+# Project Tracker — Kanban Board
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A project management tool built with React + TypeScript and Tailwind CSS.
 
-Currently, two official plugins are available:
+## State Management Decision
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+I used React's built-in useState hook to manage all task and column state 
+locally inside the Kanban component.
 
-## React Compiler
+Why not Zustand or Context?
+- The application currently has a single view (Kanban) with no deeply 
+  nested components that need shared state
+- useState is sufficient when state lives in one parent and is passed 
+  to direct children
+- No async operations or cross-route state sharing is needed at this stage
+## Drag and Drop Implementation
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Built from scratch using native browser drag events — no external libraries 
+or APIs used.
 
-## Expanding the ESLint configuration
+How it works:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. draggable=true is set on every task card div
+2. onDragStart stores the taskId and source column key in React state
+3. onDragOver calls preventDefault() on each column — this is required 
+   by the browser to allow a drop to happen
+4. onDrop reads the stored taskId and source, finds the task in the 
+   source column, removes it, and pushes it into the target column
+5. State update is done with spread operators to avoid mutating state directly
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+The entire system uses four native browser events only:
+- dragstart
+- dragover  
+- drop
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Lighthouse Score
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+| Metric | Score |
+|---|---|
+| Performance | 100 |
+| Accessibility | 66 |
+| Best Practices | 100 |
+| SEO | 90 |
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+<img width="1918" height="854" alt="image" src="https://github.com/user-attachments/assets/ed68649c-b433-4a7c-a37a-8938b1ddb416" />
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## What's Completed
+
+- [x] Kanban board with 4 columns (To Do, In Progress, In Review, Finished)
+- [x] Task cards with priority badge, assignee, due date
+- [x] Overdue date highlighting in red
+- [x] Drag and drop between columns (custom, no library)
+- [x] Add and remove tasks
+- [x] Performance score 100 on Lighthouse
